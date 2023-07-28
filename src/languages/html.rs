@@ -38,7 +38,7 @@ pub fn main(project_name: &str, with_js: &str) {
     padding: 0;    
 }
 ";
-    let str_main_folder: &str = main_folder.as_str();
+    let str_main_folder = main_folder.as_str();
     let str_css_folder = css_folder.as_str();
     let str_js_folder = js_folder.as_str();
     let str_html_file = html_file.as_str();
@@ -62,17 +62,13 @@ pub fn main(project_name: &str, with_js: &str) {
         create_file(str_html_file, str_html_content);
         create_file(str_css_file, css_content);
     }
-    
-
-
-    
 }
 
 fn create_dir(folder: &str) {
     match std::fs::create_dir(folder) {
-        Ok(_) => println!("Le dossier {} a été créé avec succès.", folder),
+        Ok(_) => println!("The folder {} has been created successfully.", folder),
         Err(e) => {
-            println!("Erreur lors de la création du dossier {} : {}", folder, e);
+            println!("Error creating folder {} : {}", folder, e);
             return;
         }
     }
@@ -82,13 +78,13 @@ fn create_file(file: &str, content: &str) {
     match File::create(&file) {
         Ok(mut file) => {
             if let Err(e) = file.write_all(content.as_bytes()) {
-                println!("Erreur lors de l'écriture dans le fichier {}", e);
+                println!("Error writing to file {}", e);
             } else {
-                println!("Le fichier a été créé avec succès.");
+                println!("The file has been created successfully");
             }
         }
         Err(e) => {
-            println!("Erreur lors de la création du fichier {} : {}", file, e);
+            println!("Error creating file {} : {}", file, e);
         }
     }
 }
