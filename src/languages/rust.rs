@@ -10,7 +10,6 @@ pub fn main(project_name: &str) {
     let output = cmd.output().expect("Failed to execute the command.");
 
     if output.status.success() {
-        println!("Project created successfully")
     } else {
         let stderr = String::from_utf8_lossy(&output.stderr);
         println!("Command error: {}", stderr);

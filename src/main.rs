@@ -7,6 +7,8 @@ use std::fs::File;
 use std::fs;
 use std::io::Read;
 use std::process::Command;
+use dialoguer::theme::ColorfulTheme;
+use dialoguer::{Select};
 
 mod languages {
     pub mod html;
@@ -76,7 +78,22 @@ fn main() {
     let project_name = ask_string("Please enter the project name");
 
     loop {
-        let choice = ask_string("What language do you want to use for the project?, html/rust/go :").to_lowercase();
+        
+        let choices = &["rust", "html", "go"];
+        let choice;
+        let selection = Select::with_theme(&ColorfulTheme::default())
+        .with_prompt("Language to use")
+        .items(choices)
+        .default(0) 
+        .interact()
+        .unwrap();
+    
+        match selection {
+            0 => choice = "rust",
+            1 => choice = "html",
+            2 => choice = "go",
+            _ => unreachable!(),
+        }
 
         if choice == "rust" {
             languages::rust::main(&project_name);
