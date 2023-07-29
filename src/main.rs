@@ -1,5 +1,11 @@
 use std::io;
 use std::io::prelude::*;
+use std::env;
+use std::path::PathBuf;
+use serde::{Serialize, Deserialize};
+use std::fs::File;
+use std::io::Read;
+
 
 mod languages {
     pub mod html;
@@ -8,6 +14,11 @@ mod languages {
 }
 mod config {
     pub mod config;
+}
+#[derive(Serialize, Deserialize)]
+struct Data {
+    folder_path: PathBuf,
+    editor_response: String,
 }
 
 fn ask_string(message: &str) -> String {
@@ -22,8 +33,18 @@ fn ask_string(message: &str) -> String {
 }
 
 fn main() {
+    config::config::main();
+    let mut file = File::open("data.json").expect("Failed to open the file.");
+    let mut data = String::new();
+    file.read_to_string(&mut data).expect("Failed to read the file.");
+    let data: Data = serde_json::from_str(&data).expect("Failed to deserialize JSON.");
 
-config::config::main();
+    println!("Folder Path: {:?}", data.folder_path);
+    println!("Editor Response: {}", data.editor_response);
+
+let documents_dir = env::current_dir().unwrap().join(data.folder_path);
+env::set_current_dir(&documents_dir).expect("Imposible to set documents directory");
+
 let project_name = ask_string("Please enter the project name");
 
 loop {
