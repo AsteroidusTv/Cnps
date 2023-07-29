@@ -8,7 +8,7 @@ use std::fs;
 use std::io::Read;
 use std::process::Command;
 use dialoguer::theme::ColorfulTheme;
-use dialoguer::{Select};
+use dialoguer::Select;
 
 mod languages {
     pub mod html;
