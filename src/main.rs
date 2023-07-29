@@ -4,9 +4,9 @@ use std::env;
 use std::path::PathBuf;
 use serde::{Serialize, Deserialize};
 use std::fs::File;
+use std::fs;
 use std::io::Read;
 use std::process::Command;
-
 
 mod languages {
     pub mod html;
@@ -32,7 +32,6 @@ fn ask_string(message: &str) -> String {
         .expect("Failed to read line");
     line.trim().to_string()
 }
-
 fn command_execute(command: &str, args: Vec<&str>) {
     let mut cmd = Command::new(command);
     cmd.args(args);
@@ -46,7 +45,6 @@ fn command_execute(command: &str, args: Vec<&str>) {
         println!("Command error: {}", stderr);
     }
 }
-
 fn change_directory(dir: &str) {
     let documents_dir = env::current_dir().unwrap().join(dir);
     env::set_current_dir(&documents_dir).expect("Imposible to set documents directory");
@@ -54,12 +52,16 @@ fn change_directory(dir: &str) {
 
 fn main() {
 
+    if !fs::metadata("data.json").is_ok() {
+        config::config::main();
+    }
+    
     // Get data from data.json
-    config::config::main();
     let mut file = File::open("data.json").expect("Failed to open the file.");
     let mut data = String::new();
     file.read_to_string(&mut data).expect("Failed to read the file.");
     let data: Data = serde_json::from_str(&data).expect("Failed to deserialize JSON.");
+
     // Command to execute
     let git_command = "git";
     let git_args = vec!["init"];
