@@ -3,6 +3,34 @@ use std::fs::File;
 use std::io::Write;
 use std::env;
 
+fn create_dir(folder: &str) {
+    match std::fs::create_dir(folder) {
+        Ok(_) => println!("The folder {} has been created successfully", folder),
+        Err(e) => {
+            println!("Error creating folder {:?}: {}", folder, e);
+            return;
+        }
+    }
+}
+
+fn create_file(file: &str) {
+    match File::create(&file) {
+        Err(e) => {
+            println!("Error creating file {:?}: {}", file, e);
+        }
+        Ok(mut file) => {
+            match file.write_all("".as_bytes()) {
+                Err(e) => {
+                    println!("Error writing to file {:?}: {}", file, e);
+                }
+                Ok(_) => {
+                    println!("File {:?} has been created successfully", file);
+                }
+            }
+        }
+    }
+}
+
 pub fn main(project_name: &str) {
     let base_folder: String = String::from(project_name.clone());
     let cmd_folder: String = String::from(format!("{}/cmd", base_folder));
@@ -41,30 +69,3 @@ pub fn main(project_name: &str) {
     }
 }
 
-fn create_dir(folder: &str) {
-    match std::fs::create_dir(folder) {
-        Ok(_) => println!("The folder {} has been created successfully", folder),
-        Err(e) => {
-            println!("Error creating folder {:?}: {}", folder, e);
-            return;
-        }
-    }
-}
-
-fn create_file(file: &str) {
-    match File::create(&file) {
-        Err(e) => {
-            println!("Error creating file {:?}: {}", file, e);
-        }
-        Ok(mut file) => {
-            match file.write_all("".as_bytes()) {
-                Err(e) => {
-                    println!("Error writing to file {:?}: {}", file, e);
-                }
-                Ok(_) => {
-                    println!("File {:?} has been created successfully", file);
-                }
-            }
-        }
-    }
-}

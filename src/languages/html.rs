@@ -1,6 +1,31 @@
 use std::fs::File;
 use std::io::prelude::*;
 
+pub fn create_dir(folder: &str) {
+    match std::fs::create_dir(folder) {
+        Ok(_) => println!("The folder {} has been created successfully.", folder),
+        Err(e) => {
+            println!("Error creating folder {} : {}", folder, e);
+            return;
+        }
+    }
+}
+
+pub fn create_file(file: &str, content: &str) {
+    match File::create(&file) {
+        Ok(mut file) => {
+            if let Err(e) = file.write_all(content.as_bytes()) {
+                println!("Error writing to file {}", e);
+            } else {
+                println!("The file has been created successfully");
+            }
+        }
+        Err(e) => {
+            println!("Error creating file {} : {}", file, e);
+        }
+    }
+}
+
 pub fn main(project_name: &str, with_js: &str) {
     // Nom du dossier que nous voulons créer
     let main_folder: String = String::from(project_name.clone());
@@ -64,27 +89,3 @@ pub fn main(project_name: &str, with_js: &str) {
     }
 }
 
-fn create_dir(folder: &str) {
-    match std::fs::create_dir(folder) {
-        Ok(_) => println!("The folder {} has been created successfully.", folder),
-        Err(e) => {
-            println!("Error creating folder {} : {}", folder, e);
-            return;
-        }
-    }
-}
-
-fn create_file(file: &str, content: &str) {
-    match File::create(&file) {
-        Ok(mut file) => {
-            if let Err(e) = file.write_all(content.as_bytes()) {
-                println!("Error writing to file {}", e);
-            } else {
-                println!("The file has been created successfully");
-            }
-        }
-        Err(e) => {
-            println!("Error creating file {} : {}", file, e);
-        }
-    }
-}

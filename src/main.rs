@@ -87,7 +87,7 @@ fn main() {
         .default(0) 
         .interact()
         .unwrap();
-    
+
         match selection {
             0 => choice = "rust",
             1 => choice = "html",
