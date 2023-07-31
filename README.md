@@ -35,5 +35,11 @@ sudo apt install golang
 You dont need to install anything for other languages.
 
 
-## Install 
+## Install
+
+### Download the deb package
+### Install it 
+```
+sudo dpkg -i cnps.deb
+```
 With the packag cnps.deb when you install it a .desktop application will be created as well as a personalized command "newp"
