@@ -24,11 +24,11 @@ CNPS was previously implemented in [Bash] (https://github.com/AsteroidusTv/Creat
 
 ## Dependencies
 
-### For using cnps with rust :
+### For using cnps with rust:
 ```
 sudo apt install cargo
 ```
-###  For using cnps with go :
+###  For using cnps with go:
 ```
 sudo apt install golang
 ```
@@ -38,7 +38,7 @@ You dont need to install anything for other languages.
 ## Install
 
 ### Download the deb package
-### Install it 
+### Install it:
 ```
 sudo dpkg -i cnps.deb
 ```
