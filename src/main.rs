@@ -18,6 +18,7 @@ mod languages {
     pub mod html;
     pub mod rust;
     pub mod go;
+    pub mod python;
 }
 mod config {
     pub mod config;
@@ -162,7 +163,7 @@ fn main() {
 
     loop {
         
-        let choices = &["rust", "html", "go"];
+        let choices = &["rust", "html", "go", "python", ];
         let choice;
         let selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Language to use")
@@ -175,33 +176,24 @@ fn main() {
             0 => choice = "rust",
             1 => choice = "html",
             2 => choice = "go",
+            3 => choice = "python",
             _ => unreachable!(),
         }
 
         if choice == "rust" {
             languages::rust::main(&project_name);
-            change_directory(project_name.as_str());
-            command_execute(git_command, git_args);
-            command_execute(editor_command, editor_args);
-            break;
         } else if choice == "html" {
             let with_js = ask_string("Use javascript in this project? y/N");
             languages::html::main(&project_name, &with_js);
-            change_directory(project_name.as_str());
-            command_execute(git_command, git_args);
-            command_execute(editor_command, editor_args);
-            command_execute(open_command, open_args_str);
-            break;
-
+            command_execute(open_command, open_args_str.clone());
         } else if choice == "go" {
             languages::go::main(&project_name);
-            change_directory(project_name.as_str());
-            command_execute(git_command, git_args);
-            command_execute(editor_command, editor_args);
-            break;
-        } else {
-            println!("This language is not supported");
+        }  else if choice == "python"  {
+            languages::python::main(&project_name);
         }
+        change_directory(project_name.as_str());
+        command_execute(git_command, git_args.clone());
+        command_execute(editor_command, editor_args.clone());
     }
 }
 
