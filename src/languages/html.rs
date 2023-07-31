@@ -3,7 +3,7 @@ use std::io::prelude::*;
 
 pub fn create_dir(folder: &str) {
     match std::fs::create_dir(folder) {
-        Ok(_) => println!("The folder {} has been created successfully.", folder),
+        Ok(_) => {},
         Err(e) => {
             println!("Error creating folder {} : {}", folder, e);
             return;
@@ -17,7 +17,6 @@ pub fn create_file(file: &str, content: &str) {
             if let Err(e) = file.write_all(content.as_bytes()) {
                 println!("Error writing to file {}", e);
             } else {
-                println!("The file has been created successfully");
             }
         }
         Err(e) => {
@@ -60,7 +59,8 @@ pub fn main(project_name: &str, with_js: &str) {
     let css_content = "* {
     margin: 0;
     border: 0;
-    padding: 0;    
+    padding: 0;
+    box-sizing: border-box;
 }
 ";
     let str_main_folder = main_folder.as_str();

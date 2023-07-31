@@ -5,7 +5,7 @@ use std::env;
 
 fn create_dir(folder: &str) {
     match std::fs::create_dir(folder) {
-        Ok(_) => println!("The folder {} has been created successfully", folder),
+        Ok(_) => {},
         Err(e) => {
             println!("Error creating folder {:?}: {}", folder, e);
             return;
@@ -23,9 +23,7 @@ fn create_file(file: &str) {
                 Err(e) => {
                     println!("Error writing to file {:?}: {}", file, e);
                 }
-                Ok(_) => {
-                    println!("File {:?} has been created successfully", file);
-                }
+                Ok(_) => {}
             }
         }
     }

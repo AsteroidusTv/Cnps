@@ -109,11 +109,11 @@ fn main() {
     change_directory(folder_str);
 
     // Ask for project name
-    let project_name = ask_string("Please enter the project name");
+    let project_name = ask_string("Please enter the project name :");
 
     let subfolder_response = ask_string("Would you like to create your project in a subfolder ?: y/n").to_lowercase();
 
-    let open_args: Vec<String>; // Déclarez open_args en dehors du bloc if-else
+    let open_args: Vec<String>; 
 
     if subfolder_response == "y" {
         if let Some(choice) = get_project_folders("/home/achille/Documents/Projects") {
@@ -121,7 +121,6 @@ fn main() {
             println!("Selected choice: {}", choice);
             open_args = vec![format!("{}/{}/{}/index.html", folder_str, choice, project_name)];
         } else {
-            println!("No choice selected.");
             open_args = vec![format!("{}/{}/index.html", folder_str, project_name)];
     }
     } else {

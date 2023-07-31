@@ -4,6 +4,7 @@ use std::io;
 use std::io::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::fs::File;
+use std::io::Write;
 
 #[derive(Serialize, Deserialize)]
 struct Data {
@@ -41,40 +42,55 @@ fn find_directory(start_path: &Path, target_directory1: &str, target_directory2:
     None
 }
 
+fn folder_exists(file: &PathBuf) -> bool {
+    file.exists()
+}
+
 pub fn main() {
     let start_path = Path::new("/home/");
     let target_directory1 = "projects";
     let target_directory2 = "Projects";
 
-    let folder_path: PathBuf;
-    let editor_response: String;
-
-    if let Some(path) = find_directory(start_path, target_directory1, target_directory2) {
+    let folder_path = if let Some(path) = find_directory(start_path, target_directory1, target_directory2) {
         let folder_response = ask_string(format!("Is {:?} your project folder ? yN:", path).as_str()).to_lowercase();
         if folder_response == "y" {
-            folder_path = path;
+            path
         } else {
-            folder_path = ask_string("Enter your projects folder path : ").into();
+            loop {
+                let path_str = ask_string("Enter your projects folder path : ");
+                let path_buf = PathBuf::from(&path_str);
+                if folder_exists(&path_buf) {
+                    break path_buf;
+                }
+                println!("The folder that you entered doesn't exist :");
+            }
         }
     } else {
-        folder_path = ask_string("Enter your projects folder path: ").into();
-    }
+        loop {
+            let path_str = ask_string("Enter your projects folder path : ");
+            let path_buf = PathBuf::from(&path_str);
+            if folder_exists(&path_buf) {
+                break path_buf;
+            }
+            println!("The folder that you entered doesn't exist :");
+        }
+    };
+
+    let mut data = Data {
+        folder_path,
+        editor_response: String::new(),
+    };
 
     loop {
         let response = ask_string("What's your IDE subl/code (Sublime text / Vscode)").to_lowercase();
         if response != "subl" && response != "code" {
             println!("Invalid IDE response: {} you must choose 'subl' or 'code'", response);
         } else {
-            editor_response = response;
+            data.editor_response = response; // Assign the user response to the correct field of the Data struct
             break;
         }
     }
 
-    // Crée une instance de la structure Data avec les valeurs obtenues
-    let data = Data {
-        folder_path,
-        editor_response,
-    };
 
     let json_string = serde_json::to_string(&data).expect("Failed to serialize data to JSON");
     let file_path = "data.json";
@@ -82,7 +98,7 @@ pub fn main() {
 
     file.write_all(json_string.as_bytes()).expect("Failed to write data to file");
     println!("Data has been written to data.json.");
-
 }
+
 
 
