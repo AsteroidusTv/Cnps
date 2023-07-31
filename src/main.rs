@@ -66,6 +66,8 @@ fn get_project_folders(paths: &str) -> Option<String> {
         }
     }
 
+    in_choices.push("Add a new subfolder".to_string());
+
     let choices: &Vec<String> = &in_choices;
     let mut choice = "";
 
@@ -91,7 +93,6 @@ fn get_project_folders(paths: &str) -> Option<String> {
 
 }
 
-
 fn main() {
 
     if !fs::metadata("data.json").is_ok() {
@@ -115,17 +116,33 @@ fn main() {
 
     let open_args: Vec<String>; 
 
+
     if subfolder_response == "y" {
-        if let Some(choice) = get_project_folders("/home/achille/Documents/Projects") {
-            change_directory(choice.as_str());
-            println!("Selected choice: {}", choice);
-            open_args = vec![format!("{}/{}/{}/index.html", folder_str, choice, project_name)];
+        if let Some(choice) = get_project_folders(folder_str) {
+            if choice == "Add a new subfolder" {
+                fs::create_dir_all(ask_string("Name for the new folder : ")).unwrap();
+                if let Some(new_choice) = get_project_folders(folder_str) {
+                    change_directory(new_choice.as_str());
+                    println!("Selected choice: {}", new_choice);
+                    open_args = vec![format!("{}/{}/{}/index.html", folder_str, new_choice, project_name)];
+                } else {
+                    // Handle the case where get_project_folders() returns None after creating a new subfolder
+                    println!("Failed to get the newly created subfolder choice.");
+                    return; // or perform other error handling
+                }
+            } else {
+                change_directory(choice.as_str());
+                println!("Selected choice: {}", choice);
+                open_args = vec![format!("{}/{}/{}/index.html", folder_str, choice, project_name)];
+            }
         } else {
-            open_args = vec![format!("{}/{}/index.html", folder_str, project_name)];
-    }
+            println!("Failed to get project folders.");
+            return; // or perform other error handling
+        }
     } else {
         open_args = vec![format!("{}/{}/index.html", folder_str, project_name)];
     }
+    
      
     // Command to execute
     let git_command = "git";
