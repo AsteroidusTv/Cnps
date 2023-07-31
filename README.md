@@ -8,7 +8,7 @@ For HTML projects, CNPS goes above and beyond by providing a fully-prepared HTML
 Moreover, CNPS offers a set of pre-designed layout templates for common use cases, such as a simple one-column layout, a responsive two-column layout, or a flexbox-based grid layout. These layout templates are included in the CSS file, making it effortless to structure and style your web page according to your preferences.
 CNPS also establishes the connection between the HTML and CSS files, ensuring they are linked correctly, so you can focus on crafting an aesthetically pleasing and functional web page.
 Furthermore, CNPS takes care of opening the newly created HTML file in your default web browser, enabling you to view your page instantly and streamline the development process.
-CNPS was previously implemented in [Bash] (https://github.com/AsteroidusTv/Create-New-Project-simply), but its transition to Rust brings numerous advantages, including improved performance, enhanced reliability, and a more maintainable codebase.
+CNPS was previously implemented in [Bash](https://github.com/AsteroidusTv/Create-New-Project-simply), but its transition to Rust brings numerous advantages, including improved performance, enhanced reliability, and a more maintainable codebase.
 
 ## Features:
 
