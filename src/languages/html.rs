@@ -1,29 +1,4 @@
-use std::fs::File;
-use std::io::prelude::*;
-
-pub fn create_dir(folder: &str) {
-    match std::fs::create_dir(folder) {
-        Ok(_) => {},
-        Err(e) => {
-            println!("Error creating folder {} : {}", folder, e);
-            return;
-        }
-    }
-}
-
-pub fn create_file(file: &str, content: &str) {
-    match File::create(&file) {
-        Ok(mut file) => {
-            if let Err(e) = file.write_all(content.as_bytes()) {
-                println!("Error writing to file {}", e);
-            } else {
-            }
-        }
-        Err(e) => {
-            println!("Error creating file {} : {}", file, e);
-        }
-    }
-}
+use crate::functions::functions;
 
 pub fn main(project_name: &str, with_js: &str) {
     // Nom du dossier que nous voulons créer
@@ -73,19 +48,16 @@ pub fn main(project_name: &str, with_js: &str) {
     let str_js_file = js_file.as_str();
 
     if with_js == "y" || with_js == "Y" {
-        create_dir(str_main_folder);
-        create_dir(str_css_folder);
-        create_dir(str_js_folder);
-        create_file(str_html_file, str_html_js_content);
-        create_file(str_css_file, css_content);
-        create_file(str_js_file, "")
+        functions::create_dir(str_js_folder);
+        functions::create_file(str_html_file, str_html_js_content);
+        functions::create_file(str_js_file, "")
 
     }
-    else {
-        create_dir(str_main_folder);
-        create_dir(str_css_folder);
-        create_file(str_html_file, str_html_content);
-        create_file(str_css_file, css_content);
-    }
+    
+    functions::create_dir(str_main_folder);
+    functions::create_dir(str_css_folder);
+    functions::create_file(str_html_file, str_html_content);
+    functions::create_file(str_css_file, css_content);
+    
 }
 

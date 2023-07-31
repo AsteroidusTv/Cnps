@@ -10,6 +10,10 @@ use std::process::Command;
 use dialoguer::theme::ColorfulTheme;
 use dialoguer::Select;
 
+mod functions {
+    pub mod functions;
+}
+
 mod languages {
     pub mod html;
     pub mod rust;
