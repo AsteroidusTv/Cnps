@@ -101,12 +101,12 @@ fn get_project_folders(paths: &str) -> Option<String> {
 
 fn main() {
 
-    if !fs::metadata("data.json").is_ok() {
+    if !fs::metadata(".data.json").is_ok() {
         config::config::main();
     }
     
     // Get data from data.json
-    let mut file = File::open("data.json").expect("Failed to open the file.");
+    let mut file = File::open(".data.json").expect("Failed to open the file.");
     let mut data = String::new();
     file.read_to_string(&mut data).expect("Failed to read the file.");
     let data: Data = serde_json::from_str(&data).expect("Failed to deserialize JSON.");

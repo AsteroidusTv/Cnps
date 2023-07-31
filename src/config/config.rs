@@ -93,7 +93,7 @@ pub fn main() {
 
 
     let json_string = serde_json::to_string(&data).expect("Failed to serialize data to JSON");
-    let file_path = "data.json";
+    let file_path = ".data.json";
     let mut file = File::create(file_path).expect("Failed to create file");
 
     file.write_all(json_string.as_bytes()).expect("Failed to write data to file");
