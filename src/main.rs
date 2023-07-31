@@ -196,6 +196,8 @@ fn main() {
             languages::python::main(&project_name);
         } else if choice == "assembly" {  
             languages::assembly::main(&project_name);
+        } else if choice == "lua" {
+            languages::lua::main(&project_name);
         }
         change_directory(project_name.as_str());
         command_execute(git_command, git_args.clone());
