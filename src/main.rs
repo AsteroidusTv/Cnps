@@ -20,6 +20,7 @@ mod languages {
     pub mod go;
     pub mod python;
     pub mod assembly;
+    pub mod lua;
 }
 mod config {
     pub mod config;
@@ -164,7 +165,7 @@ fn main() {
 
     loop {
         
-        let choices = &["rust", "html", "go", "python", "assembly", ];
+        let choices = &["rust", "html", "go", "python", "assembly", "lua", ];
         let choice;
         let selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Language to use")
@@ -179,6 +180,7 @@ fn main() {
             2 => choice = "go",
             3 => choice = "python",
             4 => choice = "assembly",
+            5 => choice = "lua",
             _ => unreachable!(),
         }
 
