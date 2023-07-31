@@ -19,6 +19,7 @@ mod languages {
     pub mod rust;
     pub mod go;
     pub mod python;
+    pub mod assembly;
 }
 mod config {
     pub mod config;
@@ -163,7 +164,7 @@ fn main() {
 
     loop {
         
-        let choices = &["rust", "html", "go", "python", ];
+        let choices = &["rust", "html", "go", "python", "assembly", ];
         let choice;
         let selection = Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Language to use")
@@ -177,6 +178,7 @@ fn main() {
             1 => choice = "html",
             2 => choice = "go",
             3 => choice = "python",
+            4 => choice = "assembly",
             _ => unreachable!(),
         }
 
@@ -190,6 +192,8 @@ fn main() {
             languages::go::main(&project_name);
         }  else if choice == "python"  {
             languages::python::main(&project_name);
+        } else if choice == "assembly" {  
+            languages::assembly::main(&project_name);
         }
         change_directory(project_name.as_str());
         command_execute(git_command, git_args.clone());
