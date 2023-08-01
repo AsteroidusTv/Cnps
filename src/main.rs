@@ -196,6 +196,7 @@ fn main() {
     } else if choice == "html" {
         let with_js = ask_string("Use javascript in this project? y/N");
         languages::html::main(&project_name, &with_js);
+        command_execute(editor_command, editor_args.clone());
         command_execute(open_command, open_args_str.clone());
     } else if choice == "go" {
         languages::go::main(&project_name);
