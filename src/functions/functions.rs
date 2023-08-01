@@ -24,3 +24,15 @@ pub fn create_file(file: &str, content: &str) {
         }
     }
 }
+
+pub fn simple_create(project_name: &str, extension: &str) {
+    let main_folder: String = String::from(project_name.clone());
+    let language_file: String = String::from(format!("{}/main.{}", main_folder, extension));
+
+    let str_main_folder = main_folder.as_str();
+    let str_language_file = language_file.as_str();
+
+    create_dir(str_main_folder);
+    create_file(str_language_file, "");
+
+}

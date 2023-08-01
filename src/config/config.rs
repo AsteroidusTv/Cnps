@@ -5,6 +5,8 @@ use std::io::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::io::Write;
+use dialoguer::theme::ColorfulTheme;
+use dialoguer::Select;
 
 #[derive(Serialize, Deserialize)]
 struct Data {
@@ -81,16 +83,25 @@ pub fn main() {
         editor_response: String::new(),
     };
 
-    loop {
-        let response = ask_string("What's your IDE subl/code (Sublime text / Vscode)").to_lowercase();
-        if response != "subl" && response != "code" {
-            println!("Invalid IDE response: {} you must choose 'subl' or 'code'", response);
-        } else {
-            data.editor_response = response; // Assign the user response to the correct field of the Data struct
-            break;
-        }
+    let choices = &["Sublime text", "Vscode", "Notepad ++", "Intelij Idea"];
+    let choice;
+    let selection = Select::with_theme(&ColorfulTheme::default())
+    .with_prompt("Language to use")
+    .items(choices)
+    .default(0) 
+    .interact()
+    .unwrap();
+
+    match selection {
+        0 => choice = "subl",
+        1 => choice = "code",
+        2 => choice = "start notepad++",
+        3 => choice = "idea",
+        _ => unreachable!(),
     }
 
+    println!("{}", choice);
+    data.editor_response = choice.to_string();
 
     let json_string = serde_json::to_string(&data).expect("Failed to serialize data to JSON");
     let file_path = ".data.json";
