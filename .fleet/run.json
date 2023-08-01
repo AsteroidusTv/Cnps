@@ -1,0 +1,9 @@
+{
+    "configurations": [
+        {
+            "type": "cargo run",
+            "name": "Cargo configuration",
+        },
+        
+    ]
+}

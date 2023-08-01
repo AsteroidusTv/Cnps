@@ -47,9 +47,7 @@ fn command_execute(command: &str, args: Vec<&str>) {
     
     let output = cmd.output().expect("Failed to execute the command.");
 
-    if output.status.success() {
-        println!("Project created successfully")
-    } else {
+    if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
         println!("Command error: {}", stderr);
     }
@@ -75,7 +73,6 @@ fn get_project_folders(paths: &str) -> Option<String> {
             in_choices.push(last_folder.to_string());
         }
     }
-
     // Push the create subfolder to the vector.
     in_choices.push("Add a new subfolder".to_string());
 

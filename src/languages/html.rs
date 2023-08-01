@@ -47,17 +47,16 @@ pub fn main(project_name: &str, with_js: &str) {
     let str_css_file = css_file.as_str();
     let str_js_file = js_file.as_str();
 
+    functions::create_dir(str_main_folder);
+    functions::create_dir(str_css_folder);
+    functions::create_file(str_html_file, str_html_content);
+    functions::create_file(str_css_file, css_content);
+    
     if with_js == "y" || with_js == "Y" {
         functions::create_dir(str_js_folder);
         functions::create_file(str_html_file, str_html_js_content);
         functions::create_file(str_js_file, "")
 
     }
-    
-    functions::create_dir(str_main_folder);
-    functions::create_dir(str_css_folder);
-    functions::create_file(str_html_file, str_html_content);
-    functions::create_file(str_css_file, css_content);
-    
 }
 

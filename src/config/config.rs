@@ -100,7 +100,6 @@ pub fn main() {
         _ => unreachable!(),
     }
 
-    println!("{}", choice);
     data.editor_response = choice.to_string();
 
     let json_string = serde_json::to_string(&data).expect("Failed to serialize data to JSON");
@@ -108,7 +107,6 @@ pub fn main() {
     let mut file = File::create(file_path).expect("Failed to create file");
 
     file.write_all(json_string.as_bytes()).expect("Failed to write data to file");
-    println!("Data has been written to data.json.");
 }
 
 
