@@ -1,0 +1,5 @@
+Package: CNPS
+Version: 1.1
+Architecture: amd64 
+Maintainer: Asteroidus <asteroidus@protonmail.com>
+Description: create new project simply in rust

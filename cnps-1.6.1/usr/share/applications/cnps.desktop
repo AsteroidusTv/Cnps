@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=CNPS
-Exec=/usr/bin/cnps
-Icon=/usr/share/icons/hicolor/48x48/icon.png
-Terminal=true
-Type=Application
-Categories=Utility;Application;
-

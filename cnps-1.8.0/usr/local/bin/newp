@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Define the help text
+function print_help() {
+  echo "Usage: newp"
+  echo "Description: Run the executable /usr/bin/cnps"
+  echo "Just run 'newp'"
+}
+
+# Check for the --help option
+if [[ $1 == "--help" || $1 == "-h" ]]; then
+  print_help
+  exit 0
+fi
+
+/usr/bin/cnps "$@"
