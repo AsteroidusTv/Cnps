@@ -24,6 +24,13 @@ CNPS was previously implemented in [Bash](https://github.com/AsteroidusTv/Create
 
 ## Dependencies
 
+### Git 
+```
+sudo apt install git
+```
+# You have to configure it 
+
+
 ### For using cnps with rust:
 ```
 sudo apt install cargo
