@@ -28,8 +28,7 @@ CNPS was previously implemented in [Bash](https://github.com/AsteroidusTv/Create
 ```
 sudo apt install git
 ```
-# You have to configure it 
-
+You have to configure it 
 
 ### For using cnps with rust:
 ```
