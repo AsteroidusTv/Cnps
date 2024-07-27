@@ -4,7 +4,7 @@ use std::env;
 use crate::functions::functions;
 
 pub fn main(project_name: &str) {
-    let base_folder: String = String::from(project_name.clone());
+    let base_folder: String = String::from(project_name);
     let cmd_folder: String = String::from(format!("{}/cmd", base_folder));
     let main_folder: String = String::from(format!("{}/main", cmd_folder));
     let go_file: String = String::from(format!("{}/main.go", main_folder));
